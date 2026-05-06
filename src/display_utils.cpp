@@ -19,7 +19,7 @@ void displaySensorData(LiquidCrystal *lcd, DhtData dhtData, int waterLevel, int 
     lcd->print("Humidity: ");
     lcd->print(String(dhtData.humidity, 1));
     lcd->print("%");
-    delay(2000);
+    delay(4000);
     lcd->clear();
     lcd->setCursor(0, 0);
     lcd->print("Water Level: ");
@@ -27,7 +27,7 @@ void displaySensorData(LiquidCrystal *lcd, DhtData dhtData, int waterLevel, int 
     lcd->setCursor(0, 1);
     lcd->print("Light Level: ");
     lcd->print(String(lightLevel));
-    delay(1500);
+    delay(4000);
 }
 
 void displaySensorError(LiquidCrystal *lcd) {
