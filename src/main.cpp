@@ -17,6 +17,7 @@
 
 // globals
 float temperatureThreshold = 85.0;
+int waterLevelThreshold = 250;
 
 // lcd display: RS, E, D4, D5, D6, D7
 LiquidCrystal lcd(12, 11, 4, 5, 6, 7);
@@ -54,10 +55,16 @@ void loop() {
   changeLcdBacklight(lightLevel, BACKLIGHT_TRANSISTOR_PIN);
   printLightLevel(lightLevel);
   
-  if (checkTempThreshold(BUZZER_PIN, dhtData.temperatureF, temperatureThreshold)) {
-    displayWarning(&lcd);
+  bool tempAlarm = checkTempThreshold(BUZZER_PIN, dhtData.temperatureF, temperatureThreshold);
+  bool waterAlarm = checkWaterLevelThreshold(BUZZER_PIN, waterLevel, waterLevelThreshold);
+  
+  if (tempAlarm) {
+    displayWarning(&lcd, "High Temperature");
     delay(1000);
   }
-  
-  // delay(1000);
+
+  if (waterAlarm) {
+    displayWarning(&lcd, "High Water Level");
+    delay(1000);
+  }
 }

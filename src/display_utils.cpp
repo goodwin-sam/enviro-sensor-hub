@@ -39,9 +39,9 @@ void changeLcdBacklight(int lightLevel, int BACKLIGHT_TRANSISTOR_PIN) {
     analogWrite(BACKLIGHT_TRANSISTOR_PIN, lightLevel);
 }
 
-void displayWarning(LiquidCrystal *lcd) {
+void displayWarning(LiquidCrystal *lcd, String message) {
     lcd->clear();
     lcd->setCursor(0, 0);
-    lcd->print("High Temperature");
+    lcd->print(message);
     delay(5000);
 }

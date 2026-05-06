@@ -10,3 +10,13 @@ bool checkTempThreshold(uint8_t buzzerPin, float temperatureF, float temperature
         return false;
     }
 }
+
+bool checkWaterLevelThreshold(uint8_t buzzerPin, int waterLevel, int waterLevelThreshold) {
+    if (waterLevel > waterLevelThreshold) {
+        digitalWrite(buzzerPin, HIGH);
+        return true;
+    } else {
+        digitalWrite(buzzerPin, LOW);
+        return false;
+    }
+}
