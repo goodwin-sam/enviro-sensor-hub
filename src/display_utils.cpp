@@ -8,12 +8,26 @@ void initLcdDisplay(LiquidCrystal *lcd, int BACKLIGHT_TRANSISTOR_PIN) {
     lcd->clear();
 }
 
-void displaySensorData(LiquidCrystal *lcd, float temperatureF, float humidity) {
+void displaySensorData(LiquidCrystal *lcd, DhtData dhtData, int waterLevel, int lightLevel) {
     lcd->clear();
     lcd->setCursor(0, 0);
-    lcd->print("Temp: " + String(temperatureF, 1) + static_cast<char>(223) + "F");
+    lcd->print("Temp: ");
+    lcd->print(String(dhtData.temperatureF, 1));
+    lcd->print(static_cast<char>(223));
+    lcd->print("F");
     lcd->setCursor(0, 1);
-    lcd->print("Humidity: " + String(humidity, 1) + "%");
+    lcd->print("Humidity: ");
+    lcd->print(String(dhtData.humidity, 1));
+    lcd->print("%");
+    delay(4000);
+    lcd->clear();
+    lcd->setCursor(0, 0);
+    lcd->print("Water Level: ");
+    lcd->print(String(waterLevel));
+    lcd->setCursor(0, 1);
+    lcd->print("Light Level: ");
+    lcd->print(String(lightLevel));
+    delay(4000);
 }
 
 void displaySensorError(LiquidCrystal *lcd) {
@@ -23,4 +37,11 @@ void displaySensorError(LiquidCrystal *lcd) {
 
 void changeLcdBacklight(int lightLevel, int BACKLIGHT_TRANSISTOR_PIN) {
     analogWrite(BACKLIGHT_TRANSISTOR_PIN, lightLevel);
+}
+
+void displayWarning(LiquidCrystal *lcd, String message) {
+    lcd->clear();
+    lcd->setCursor(0, 0);
+    lcd->print(message);
+    delay(5000);
 }

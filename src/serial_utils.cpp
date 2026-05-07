@@ -12,3 +12,7 @@ void printSensorError() {
 void printLightLevel(int lightLevel) {
   Serial.println("Light level: " + String(lightLevel));
 }
+
+void printWaterLevel(int waterLevel) {
+  Serial.println("Water level: " + String(waterLevel));
+}

@@ -7,5 +7,6 @@
 void printSensorData(const DhtData& data);
 void printSensorError();
 void printLightLevel(int lightLevel);
+void printWaterLevel(int waterLevel);
 
 #endif  // INCLUDE_SERIAL_UTILS_H_
