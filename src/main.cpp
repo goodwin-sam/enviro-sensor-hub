@@ -50,14 +50,10 @@ void loop() {
   }
   displaySensorData(&lcd, dhtData, waterLevel, lightLevel);
   printSensorData(dhtData);
-
-  
   changeLcdBacklight(lightLevel, BACKLIGHT_TRANSISTOR_PIN);
   printLightLevel(lightLevel);
-  
   bool tempAlarm = checkTempThreshold(BUZZER_PIN, dhtData.temperatureF, temperatureThreshold);
   bool waterAlarm = checkWaterLevelThreshold(BUZZER_PIN, waterLevel, waterLevelThreshold);
-  
   if (tempAlarm) {
     displayWarning(&lcd, "High Temperature");
     delay(1000);
