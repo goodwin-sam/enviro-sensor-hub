@@ -15,7 +15,8 @@
 #define LDR_PIN A1
 #define BACKLIGHT_TRANSISTOR_PIN 9
 #define WATER_SENSOR_PIN A5
-#define FAN_PIN 8
+#define FAN_PIN_ENABLE 8
+#define FAN_PIN_PWM 10
 
 // globals
 // float temperatureThreshold = 85.0;
@@ -31,15 +32,15 @@ void setup() {
   pinMode(BUZZER_PIN, OUTPUT);
   pinMode(LDR_PIN, INPUT);
   pinMode(BACKLIGHT_TRANSISTOR_PIN, OUTPUT);
-  pinMode(FAN_PIN, OUTPUT);
+  pinMode(FAN_PIN_ENABLE, OUTPUT);
   Serial.begin(9600);
   dht.begin();
   initLcdDisplay(&lcd, BACKLIGHT_TRANSISTOR_PIN);
 }
 
 void loop() {
-  digitalWrite(FAN_PIN, HIGH);
-  analogWrite(10, 255);
+  // digitalWrite(FAN_PIN, HIGH);
+  // analogWrite(10, 255);
   DhtData dhtData = readTempAndHumidity(&dht);
 
   int waterLevel = readWaterLevel(WATER_SENSOR_PIN);
@@ -59,7 +60,7 @@ void loop() {
   printLightLevel(lightLevel);
   bool tempAlarm = checkTempThresholdBuzzer(BUZZER_PIN, dhtData.temperatureF, TEMPERATURE_THRESHOLD_BUZZER);
   bool waterAlarm = checkWaterLevelThresholdBuzzer(BUZZER_PIN, waterLevel, WATER_LEVEL_THRESHOLD);
-  String fanSpeed = checkTempThresholdFan(FAN_PIN, dhtData.temperatureF, FAN_THRESHOLDS);
+  String fanSpeed = checkTempThresholdFan(FAN_PIN_ENABLE, FAN_PIN_PWM, dhtData.temperatureF, FAN_THRESHOLDS);
   if (tempAlarm) {
     displayWarning(&lcd, "High Temperature");
     delay(1000);

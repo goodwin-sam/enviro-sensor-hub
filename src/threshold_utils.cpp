@@ -22,18 +22,22 @@ bool checkWaterLevelThresholdBuzzer(uint8_t buzzerPin, int waterLevel, int water
     }
 }
 
-String checkTempThresholdFan(uint8_t fanPin, float temperatureF, FanThresholds fanThresholds) {
+String checkTempThresholdFan(uint8_t enablePin, uint8_t pwmPin, float temperatureF, FanThresholds fanThresholds) {
        if (temperatureF > fanThresholds.high) {
-        analogWrite(fanPin, 255);  // High speed
+        digitalWrite(enablePin, HIGH);
+        analogWrite(pwmPin, 255);  // High speed
         return "high";
     } else if (temperatureF > fanThresholds.medium) {
-        analogWrite(fanPin, 200);  // Medium speed
+        digitalWrite(enablePin, HIGH);
+        analogWrite(pwmPin, 200);  // Medium speed
         return "medium";
     } else if (temperatureF > fanThresholds.low) {
-        analogWrite(fanPin, 150);  // Low speed
+        digitalWrite(enablePin, HIGH);
+        analogWrite(pwmPin, 150);  // Low speed
         return "low";
     } else {
-        analogWrite(fanPin, 0);  // Fan off
+        digitalWrite(enablePin, LOW);
+        analogWrite(pwmPin, 0);  // Fan off
         return "off";
     }
 }
