@@ -4,11 +4,7 @@
 #include <Arduino.h>
 #include <DHT.h>
 
-struct DhtData{
-    float humidity;
-    float temperatureF;
-    float temperatureC;
-};
+#include "config.h"
 
 DhtData readTempAndHumidity(DHT *dht);
 

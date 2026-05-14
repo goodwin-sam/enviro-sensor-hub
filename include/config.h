@@ -10,6 +10,18 @@ struct FanThresholds {
     float high;
 };
 
+struct DhtData{
+    float humidity;
+    float temperatureF;
+    float temperatureC;
+};
+
+struct SensorReadings {
+    DhtData dhtData;
+    int waterLevel;
+    int lightLevel;
+};
+
 const FanThresholds FAN_THRESHOLDS = {70.0, 75.0, 80.0};
 
 #endif  // INCLUDE_CONFIG_H_

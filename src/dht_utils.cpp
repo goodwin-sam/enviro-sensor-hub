@@ -1,4 +1,5 @@
 #include "dht_utils.h"
+#include "config.h"
 
 DhtData readTempAndHumidity(DHT *dht) {
     DhtData data;
