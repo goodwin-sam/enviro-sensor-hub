@@ -2,7 +2,7 @@
 #define INCLUDE_SERIAL_UTILS_H_
 
 #include <Arduino.h>
-#include "dht_utils.h"
+#include "sensor_utils.h"
 #include "threshold_utils.h"
 
 void printSensorData(const SensorReadings& readings);
