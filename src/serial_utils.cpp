@@ -1,18 +1,12 @@
 #include "serial_utils.h"
 
-void printSensorData(const DhtData& data) {
-  Serial.println("Temperature: " + String(data.temperatureF, 1) + " °F  |  Humidity: " +
-    String(data.humidity, 1) + " %");
+void printSensorData(const SensorReadings& readings) {
+  Serial.println("Temperature: " + String(readings.dhtData.temperatureF, 1) + " °F  |  Humidity: " +
+    String(readings.dhtData.humidity, 1) + " %");
+    Serial.println("Light level: " + String(readings.lightLevel));
+    Serial.println("Water level: " + String(readings.waterLevel));
 }
 
 void printSensorError() {
-  Serial.println("Failed to read from DHT sensor");
-}
-
-void printLightLevel(int lightLevel) {
-  Serial.println("Light level: " + String(lightLevel));
-}
-
-void printWaterLevel(int waterLevel) {
-  Serial.println("Water level: " + String(waterLevel));
+  Serial.println("Failed to read from sensor");
 }

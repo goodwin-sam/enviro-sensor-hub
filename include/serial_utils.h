@@ -4,9 +4,7 @@
 #include <Arduino.h>
 #include "dht_utils.h"
 
-void printSensorData(const DhtData& data);
+void printSensorData(const SensorReadings& readings);
 void printSensorError();
-void printLightLevel(int lightLevel);
-void printWaterLevel(int waterLevel);
 
 #endif  // INCLUDE_SERIAL_UTILS_H_
