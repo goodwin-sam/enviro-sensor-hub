@@ -7,7 +7,7 @@
 #include "dht_utils.h"
 
 void initLcdDisplay(LiquidCrystal *lcd, int BACKLIGHT_TRANSISTOR_PIN);
-void displaySensorData(LiquidCrystal *lcd, DhtData dhtData, int waterLevel, int lightLevel);
+void displaySensorData(LiquidCrystal *lcd, SensorReadings readings, bool tempAlarm, bool waterAlarm);
 void displaySensorError(LiquidCrystal *lcd);
 void changeLcdBacklight(int lightLevel, int BACKLIGHT_TRANSISTOR_PIN);
 void displayWarning(LiquidCrystal *lcd, String message);

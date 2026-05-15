@@ -38,38 +38,27 @@ void setup() {
 }
 
 void loop() {
+  // read sensors and save to SensorReadings struct
   SensorReadings readings;
   readings.dhtData = readTempAndHumidity(&dht);
   readings.waterLevel = readWaterLevel(WATER_SENSOR_PIN);
   int ldrValue = analogRead(LDR_PIN);
   readings.lightLevel = map(ldrValue, 0, 1023, 0, 255);
 
+  // check thresholds and update fan speed, buzzer state & lcd screen backlight
   bool tempAlarm = checkTempThresholdBuzzer(BUZZER_PIN, readings.dhtData.temperatureF, thresholds.tempLevelBuzzer);
   bool waterAlarm = checkWaterLevelThresholdBuzzer(BUZZER_PIN, readings.waterLevel, thresholds.waterLevelBuzzer);
   readings.fanSpeed = checkTempThresholdFan(FAN_PIN_ENABLE, FAN_PIN_PWM, readings.dhtData.temperatureF, thresholds.tempLevelFan);
+  changeLcdBacklight(readings.lightLevel, BACKLIGHT_TRANSISTOR_PIN);
 
+  // check for sensor read errors and display
   if (isnan(readings.dhtData.humidity) || isnan(readings.dhtData.temperatureF) || isnan(readings.waterLevel) || isnan(ldrValue) || isnan(readings.lightLevel)) {
     printSensorError();
     displaySensorError(&lcd);
     return;
   }
 
-  displaySensorData(&lcd, readings.dhtData, readings.waterLevel, readings.lightLevel);
-
+  // display sensor data
   printSensorData(readings);
-
-  changeLcdBacklight(readings.lightLevel, BACKLIGHT_TRANSISTOR_PIN);
-  // bool tempAlarm = checkTempThresholdBuzzer(BUZZER_PIN, readings.dhtData.temperatureF, TEMPERATURE_THRESHOLD_BUZZER);
-  // bool waterAlarm = checkWaterLevelThresholdBuzzer(BUZZER_PIN, readings.waterLevel, WATER_LEVEL_THRESHOLD);
-  // String fanSpeed = checkTempThresholdFan(FAN_PIN_ENABLE, FAN_PIN_PWM, readings.dhtData.temperatureF, FAN_THRESHOLDS);
-  if (tempAlarm) {
-    displayWarning(&lcd, "High Temperature");
-    delay(1000);
-  }
-  if (waterAlarm) {
-    displayWarning(&lcd, "High Water Level");
-    delay(1000);
-  }
-  displayWarning(&lcd, "Fan: " + readings.fanSpeed);
-  delay(1000);
+  displaySensorData(&lcd, readings, tempAlarm, waterAlarm);
 }
