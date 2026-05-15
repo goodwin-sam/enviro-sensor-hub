@@ -3,8 +3,10 @@
 
 #include <Arduino.h>
 #include "dht_utils.h"
+#include "threshold_utils.h"
 
 void printSensorData(const SensorReadings& readings);
 void printSensorError();
+void printProgramInfo(const SensorThresholds& thresholds);
 
 #endif  // INCLUDE_SERIAL_UTILS_H_

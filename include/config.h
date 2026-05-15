@@ -1,6 +1,8 @@
 #ifndef INCLUDE_CONFIG_H_
 #define INCLUDE_CONFIG_H_
 
+#include <Arduino.h>
+
 const float TEMP_THRESHOLD_BUZZER = 85.0;
 const int WATER_LEVEL_THRESHOLD_BUZZER = 250;
 
@@ -27,6 +29,7 @@ struct SensorReadings {
     DhtData dhtData;
     int waterLevel;
     int lightLevel;
+    String fanSpeed;
 };
 
 #endif  // INCLUDE_CONFIG_H_

@@ -32,6 +32,7 @@ void setup() {
   pinMode(BACKLIGHT_TRANSISTOR_PIN, OUTPUT);
   pinMode(FAN_PIN_ENABLE, OUTPUT);
   Serial.begin(9600);
+  printProgramInfo(thresholds);
   dht.begin();
   initLcdDisplay(&lcd, BACKLIGHT_TRANSISTOR_PIN);
 }
@@ -45,7 +46,7 @@ void loop() {
 
   bool tempAlarm = checkTempThresholdBuzzer(BUZZER_PIN, readings.dhtData.temperatureF, thresholds.tempLevelBuzzer);
   bool waterAlarm = checkWaterLevelThresholdBuzzer(BUZZER_PIN, readings.waterLevel, thresholds.waterLevelBuzzer);
-  String fanSpeed = checkTempThresholdFan(FAN_PIN_ENABLE, FAN_PIN_PWM, readings.dhtData.temperatureF, thresholds.tempLevelFan);
+  readings.fanSpeed = checkTempThresholdFan(FAN_PIN_ENABLE, FAN_PIN_PWM, readings.dhtData.temperatureF, thresholds.tempLevelFan);
 
   if (isnan(readings.dhtData.humidity) || isnan(readings.dhtData.temperatureF) || isnan(readings.waterLevel) || isnan(ldrValue) || isnan(readings.lightLevel)) {
     printSensorError();
@@ -69,6 +70,6 @@ void loop() {
     displayWarning(&lcd, "High Water Level");
     delay(1000);
   }
-  displayWarning(&lcd, "Fan: " + fanSpeed);
+  displayWarning(&lcd, "Fan: " + readings.fanSpeed);
   delay(1000);
 }
