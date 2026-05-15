@@ -4,7 +4,7 @@
 #include <Arduino.h>
 #include <LiquidCrystal.h>
 #include <DHT.h>
-#include "sensor_utils.h"
+#include "sensors.h"
 
 void initLcdDisplay(LiquidCrystal *lcd, int BACKLIGHT_TRANSISTOR_PIN);
 void displaySensorData(LiquidCrystal *lcd, SensorReadings readings, bool tempAlarm, bool waterAlarm);

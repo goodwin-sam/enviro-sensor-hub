@@ -2,12 +2,9 @@
 #include <LiquidCrystal.h>
 #include <DHT.h>
 #include "config.h"
-#include "sensor_utils.h"
+#include "sensors.h"
 #include "display_utils.h"
-#include "threshold_utils.h"
-// #include "dht_utils.h"
 #include "serial_utils.h"
-// #include "water_utils.h"
 
 #define DHTTYPE DHT11
 
