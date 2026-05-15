@@ -16,24 +16,12 @@ int readWaterLevel(int waterSensorPin) {
     return waterLevel;
 }
 
-bool checkTempThresholdBuzzer(uint8_t buzzerPin, float temperatureF, float temperatureThreshold) {
-    if (temperatureF > temperatureThreshold) {
-        digitalWrite(buzzerPin, HIGH);
-        return true;
-    } else {
-        digitalWrite(buzzerPin, LOW);
-        return false;
-    }
+bool checkTempThresholdBuzzer(float temperatureF, float temperatureThreshold) {
+    return temperatureF > temperatureThreshold;
 }
 
-bool checkWaterLevelThresholdBuzzer(uint8_t buzzerPin, int waterLevel, int waterLevelThreshold) {
-    if (waterLevel > waterLevelThreshold) {
-        digitalWrite(buzzerPin, HIGH);
-        return true;
-    } else {
-        digitalWrite(buzzerPin, LOW);
-        return false;
-    }
+bool checkWaterLevelThresholdBuzzer(int waterLevel, int waterLevelThreshold) {
+    return waterLevel > waterLevelThreshold;
 }
 
 String checkTempThresholdFan(uint8_t enablePin, uint8_t pwmPin, float temperatureF, TempThresholdsFan fanThresholds) {

@@ -8,8 +8,8 @@
 DhtData readTempAndHumidity(DHT *dht);
 int readWaterLevel(int waterSensorPin);
 
-bool checkTempThresholdBuzzer(uint8_t buzzerPin, float temperatureF, float temperatureThreshold);
-bool checkWaterLevelThresholdBuzzer(uint8_t buzzerPin, int waterLevel, int waterLevelThreshold);
+bool checkTempThresholdBuzzer(float temperatureF, float temperatureThreshold);
+bool checkWaterLevelThresholdBuzzer(int waterLevel, int waterLevelThreshold);
 String checkTempThresholdFan(uint8_t enablePin, uint8_t pwmPin, float temperatureF, TempThresholdsFan fanThresholds);
 
 #endif  // INCLUDE_SENSORS_H_

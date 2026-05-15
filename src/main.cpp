@@ -44,13 +44,14 @@ void loop() {
   readings.lightLevel = map(ldrValue, 0, 1023, 0, 255);
 
   // check thresholds and update fan speed, buzzer state & lcd screen backlight
-  bool tempAlarm = checkTempThresholdBuzzer(BUZZER_PIN, readings.dhtData.temperatureF, thresholds.tempLevelBuzzer);
-  bool waterAlarm = checkWaterLevelThresholdBuzzer(BUZZER_PIN, readings.waterLevel, thresholds.waterLevelBuzzer);
+  bool tempAlarm = checkTempThresholdBuzzer(readings.dhtData.temperatureF, thresholds.tempLevelBuzzer);
+  bool waterAlarm = checkWaterLevelThresholdBuzzer(readings.waterLevel, thresholds.waterLevelBuzzer);
+  digitalWrite(BUZZER_PIN, (tempAlarm || waterAlarm) ? HIGH : LOW);
   readings.fanSpeed = checkTempThresholdFan(FAN_PIN_ENABLE, FAN_PIN_PWM, readings.dhtData.temperatureF, thresholds.tempLevelFan);
   changeLcdBacklight(readings.lightLevel, BACKLIGHT_TRANSISTOR_PIN);
 
   // check for sensor read errors and display
-  if (isnan(readings.dhtData.humidity) || isnan(readings.dhtData.temperatureF) || isnan(readings.waterLevel) || isnan(ldrValue) || isnan(readings.lightLevel)) {
+  if (isnan(readings.dhtData.humidity) || isnan(readings.dhtData.temperatureF)) {
     printSensorError();
     displaySensorError(&lcd);
     return;

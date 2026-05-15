@@ -3,7 +3,6 @@
 
 #include <Arduino.h>
 #include <LiquidCrystal.h>
-#include <DHT.h>
 #include "sensors.h"
 
 void initLcdDisplay(LiquidCrystal *lcd, int BACKLIGHT_TRANSISTOR_PIN);
